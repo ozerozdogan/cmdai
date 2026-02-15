@@ -47,7 +47,7 @@ cmdai setup
 ```
 
 - You'll be prompted for your API key and optional settings.
-- On Linux/macOS you'll also be asked whether to add the `cmd` wrapper to your shell config for one-key run.
+- On Linux/macOS you'll also be asked whether to add the `cmdai` one-key run wrapper to your shell config.
 
 **Env vars:**
 
@@ -87,17 +87,18 @@ If `cmdai setup` isn't available (e.g. headless/SSH), create the config yourself
 
 ## Run with one key (Bash / Zsh)
 
-- On **Linux and macOS**, `cmdai setup` asks whether to add a `cmd` wrapper to your shell config (`~/.bashrc` or `~/.zshrc`).
+- On **Linux and macOS**, `cmdai setup` asks whether to add a `cmdai` one-key run wrapper to your shell config (`~/.bashrc` or `~/.zshrc`).
 - If you say yes, you can then run:
 
   ```bash
-  cmd list files bigger than 100mb
+  cmdai list files bigger than 100mb
   # → find . -type f -size +100M
   # Run? [Y/n]   ← Enter to run, n to skip
   ```
 
 - The generated command is also added to history, so **↑ + Enter** runs it again.
-- If `cmd` isn't found, run `source ~/.bashrc` (or `source ~/.zshrc`) or open a new terminal.
+- To get only the command (no prompt, copy to clipboard): run `command cmdai ...` to call the CLI directly.
+- If the wrapper isn't active, run `source ~/.bashrc` (or `source ~/.zshrc`) or open a new terminal.
 - **Windows:** No shell wrapper; use `cmdai` directly. Output is copied to the clipboard.
 
 ---
@@ -107,7 +108,7 @@ If `cmdai setup` isn't available (e.g. headless/SSH), create the config yourself
 If you skipped the prompt or use a different shell, add this to your rc file:
 
 ```bash
-cmd() {
+cmdai() {
   local c
   c=$(command cmdai "$*" 2>/dev/null)
   [ -z "$c" ] && return

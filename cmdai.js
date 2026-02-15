@@ -67,13 +67,13 @@ async function runSetup() {
       ? path.join(os.homedir(), ".zshrc")
       : path.join(os.homedir(), ".bashrc");
     const rcContent = fs.existsSync(rcPath) ? fs.readFileSync(rcPath, "utf8") : "";
-    const alreadyHas = /# --- cmdAI: one-key run/.test(rcContent) || (/cmd\(\)\s*\{/.test(rcContent) && rcContent.includes("cmdai"));
+    const alreadyHas = /# --- cmdAI: one-key run/.test(rcContent) || (/cmdai\(\)\s*\{/.test(rcContent) && rcContent.includes("command cmdai"));
     if (!alreadyHas) {
-      const add = await ask("\nAdd 'cmd' wrapper to your shell config for one-key run? [Y/n]: ");
+      const add = await ask("\nAdd 'cmdai' one-key run wrapper to your shell config? [Y/n]: ");
       if (add !== "n" && add !== "N") {
         const block =
           "\n# --- cmdAI: one-key run wrapper (added by cmdai setup)\n" +
-          "cmd() {\n" +
+          "cmdai() {\n" +
           "  local c\n" +
           "  c=$(command cmdai \"$*\" 2>/dev/null)\n" +
           "  [ -z \"$c\" ] && return\n" +
@@ -86,7 +86,7 @@ async function runSetup() {
           "# --- end cmdAI ---\n";
         fs.appendFileSync(rcPath, block, "utf8");
         console.log("Added to " + rcPath + ".");
-        const activate = await ask("Start a new shell with 'cmd' available now? [Y/n]: ");
+        const activate = await ask("Start a new shell with wrapper available now? [Y/n]: ");
         if (activate !== "n" && activate !== "N") {
           const shell = process.env.SHELL || "/bin/bash";
           spawnSync(shell, ["-i"], { stdio: "inherit", shell: false });
