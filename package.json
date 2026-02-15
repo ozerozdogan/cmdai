@@ -1,0 +1,30 @@
+{
+  "name": "cmd-ai",
+  "version": "1.0.0",
+  "description": "CLI that turns natural language into terminal commands using OpenRouter AI",
+  "main": "cmdai.js",
+  "type": "commonjs",
+  "bin": {
+    "cmdai": "./cmdai.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "ai",
+    "terminal",
+    "command",
+    "openrouter",
+    "natural-language"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.5",
+    "clipboardy": "^5.3.0",
+    "dotenv": "^17.3.1"
+  }
+}
