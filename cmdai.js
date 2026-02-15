@@ -8,9 +8,9 @@ const { spawnSync } = require("child_process");
 function getConfigDir() {
   if (process.platform === "win32") {
     const base = process.env.APPDATA || path.join(os.homedir(), "AppData", "Roaming");
-    return path.join(base, "cmd-ai");
+    return path.join(base, "cmdai");
   }
-  return path.join(os.homedir(), ".config", "cmd-ai");
+  return path.join(os.homedir(), ".config", "cmdai");
 }
 
 // Load config from system config dir (set via "cmdai setup")
@@ -85,7 +85,14 @@ async function runSetup() {
           "}\n" +
           "# --- end cmdAI ---\n";
         fs.appendFileSync(rcPath, block, "utf8");
-        console.log("Added to " + rcPath + ". Run: source " + rcPath + " (or open a new terminal).");
+        console.log("Added to " + rcPath + ".");
+        const activate = await ask("Start a new shell with 'cmd' available now? [Y/n]: ");
+        if (activate !== "n" && activate !== "N") {
+          const shell = process.env.SHELL || "/bin/bash";
+          spawnSync(shell, ["-i"], { stdio: "inherit", shell: false });
+        } else {
+          console.log("Run: source " + rcPath + " (or open a new terminal).");
+        }
       }
     }
   }
