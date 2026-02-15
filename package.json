@@ -1,5 +1,5 @@
 {
-  "name": "cmd-ai",
+  "name": "cmdai",
   "version": "1.0.0",
   "description": "CLI that turns natural language into terminal commands using OpenRouter AI",
   "main": "cmdai.js",
