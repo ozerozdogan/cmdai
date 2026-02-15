@@ -105,14 +105,12 @@ if (process.argv[2] === "setup" || process.argv[2] === "--setup") {
       console.error(err.message || err);
       process.exit(1);
     });
-  // Don't run main flow
 } else if (!OPENROUTER_API_KEY) {
   console.error("Error: OPENROUTER_API_KEY is not set.");
   console.error("Run: cmdai setup");
   process.exit(1);
-}
-
-(async () => {
+} else {
+  (async () => {
   let userInput = process.argv.slice(2).join(" ").trim();
   if (!userInput) {
     if (!process.stdin.isTTY) {
@@ -176,4 +174,5 @@ if (process.argv[2] === "setup" || process.argv[2] === "--setup") {
     console.error("Error:", typeof msg === "object" ? JSON.stringify(msg, null, 2) : msg);
     process.exit(1);
   }
-})();
+  })();
+}
